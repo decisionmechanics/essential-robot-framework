@@ -1,0 +1,10 @@
+ruff
+robotframework
+robotframework-robocop
+robotframework-seleniumlibrary
+robotframework-browser[bb]
+robotframework-requests
+robotframework-databaselibrary
+robotframework-pabot
+requests
+Pillow
