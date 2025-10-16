@@ -387,12 +387,12 @@ Script is in `display-message.robot`
 
 ### Reviewing results
 
-- Log files provide details about the executed test cases
-	- They allow “drilling down” into the details
-	- These are best when you want to investigate the details of specific test cases
 - Report files provide an overview of the execution results
 	- They provide a handy colour-coding to show whether the tests passed or failed
 	- These are best when you are interested in an overview of a battery of tests
+- Log files provide details about the executed test cases
+	- They allow “drilling down” into the details
+	- These are best when you want to investigate the details of specific test cases
 - Results are discussed in more detail later in the course
 
 ### Exercise: Create a simple log script
@@ -400,9 +400,9 @@ Script is in `display-message.robot`
 - Create a script that displays a message of your choosing
 - Execute the script
 - Confirm that the test case passes
-- Review the `log.html` file
 - Review the `report.html` file
-- Solution is in `display-my-nessage.robot`
+- Review the `log.html` file
+- Solution is in `display-my-message.robot`
 
 ### SeleniumLibrary
 
@@ -510,7 +510,7 @@ Script is in `add-todo.robot`
 ### Exercise: Fail a test
 
 -  Make a change that will cause the script in `add-todo.robot` to fail
-- Review the `log.html` and `report.html` file
+- Review the `report.html` and `log.html` file
  - Solution is in `fail-a-test.robot`
 
 ## Planning test scripts
@@ -519,7 +519,7 @@ Script is in `add-todo.robot`
 
 Plan test cases prior to writing scripts.
 
-### Why plan test case?
+### Why plan test cases?
 
 - Ensures consistency across all tests
 - Makes tests easier to understand and maintain
