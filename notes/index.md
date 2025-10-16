@@ -450,6 +450,7 @@ Library     SeleniumLibrary
 Open Bing And Search
     [Documentation]    Open Bing and Search
     Open Browser    https://www.bing.com    Edge
+    Wait Until Element Is Visible    name=q    10s
     Input Text    name=q    Robot Framework
     Press Keys    name=q    ENTER
     Sleep    5s
@@ -464,8 +465,8 @@ Script is in `bing-search.robot`
 - Create a script that searches Bing for an animal of your choosing
 - Execute the script
 - Confirm that the test case passes
-- Review the `log.html` file
 - Review the `report.html` file
+- Review the `log.html` file
 - Solution is in `animal-search.robot`
 
 ### Changing the browser
