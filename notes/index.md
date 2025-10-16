@@ -472,7 +472,7 @@ Script is in `bing-search.robot`
 
 - Supported browsers are
 	- Edge (`edge`)
-Ch	- Firefox (`firefox`, `ff`)
+	- Firefox (`firefox`, `ff`)
 	- Google Chrome (`googlechrome`, `chrome`, `gc`)
 	- Headless Chrome (`headlesschrome)`
 	- Headless Firefox (`headlessfirefox)`
