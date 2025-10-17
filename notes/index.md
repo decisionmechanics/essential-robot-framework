@@ -2038,7 +2038,7 @@ Improve code quality and consistency using Robocop.
 - Provides configurable rules and reports
 - Checks for errors and code quality/styling guide violations
 - Can be customised (e.g. rules, severity level)
-- Configured via `pyproject.toml` or `.robocop` file
+- Configured via `pyproject.toml`, `robocop.toml` or `robot.toml` file
 
 ### Installing Robocop
 
@@ -2091,6 +2091,18 @@ Improve code quality and consistency using Robocop.
 - Ignore a block of code
 	- Disable checks using `# robocop: off=rule1,rule2`
 	- Enable checks using `# robocop: on=rule1,rule2` (or just `# robocop: on`
+
+### Ignoring rules in configuration files
+
+- Rules can be ignored via TOML file configuration
+- To ignore all `DOC` rules, use
+
+    ```toml
+    [tool.robocop.lint]
+    ignore = [
+        "DOC*",
+    ]
+    ```
 
 ### Demo: Review the Robot Framework style guide
 
