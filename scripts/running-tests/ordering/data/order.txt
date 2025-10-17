@@ -1,0 +1,9 @@
+--suite Tests.Suite-C
+--suite Tests.Suite-A
+--suite Tests.Suite-D
+#WAIT
+{
+--suite Tests.Suite-F
+--suite Tests.Suite-E    
+}
+--suite Tests.Suite-B
