@@ -877,7 +877,7 @@ Script is in `display-messages.robot`
 
 ### PabotLib
 
-- Pabotlib allows inter-process communication between parallel test processes
+- PabotLib allows inter-process communication between parallel test processes
 - Provides a shared resource mechanism, so tests can share data or manage access to limited resources
 - Includes features like locking (to prevent concurrent access to the same resource)
 - Enables data sharing between parallel tests using a central PabotLib process
@@ -1407,8 +1407,8 @@ Project is in `resource-file\`
 
 ```
 *** Settings ***
-Resource    ../resources/common.robot
-Resource    ../resources/todo-app.robot
+Resource    ../resources/common.resource
+Resource    ../resources/todo-app.resource
 
 
 *** Test Cases ***
@@ -1422,7 +1422,7 @@ Add Multiple Todos
     Close App
 ```
 
-#### `resources\common.robot`
+#### `resources\common.resource`
 
 ```
 *** Settings ***
@@ -1446,7 +1446,7 @@ Close App
     Close Browser
 ```
 
-#### `resources\todo-app.robot`
+#### `resources\todo-app.resource`
 
 ```
 *** Settings ***
@@ -1471,7 +1471,11 @@ Add Todo
 
 - Custom keywords can return values (e.g. back to a test case) using the `RETURN` statement
 - Typically the last step inside a keyword
-- Syntax is  `RETURN value1 value2`
+- Syntax is
+
+    ```
+    RETURN    value1    value2
+    ```
 	- Can return one or multiple values
 - Assign the returned value(s) to variables in the test case with `=`
 
@@ -1598,7 +1602,7 @@ Add Multiple Todos
     Close App
 ```
 
-#### `resources\common.robot`
+#### `resources\common.resource`
 
 ```
 *** Settings ***
@@ -1622,11 +1626,11 @@ Close App
     Close Browser
 ```
 
-#### `resources\todo-app.robot`
+#### `resources\todo-app.resource`
 
 ```
 *** Settings ***
-Resource    ./pages/todo.robot
+Resource    ./pages/todo.resource
 
 
 *** Keywords ***
@@ -1636,7 +1640,7 @@ Add Todo
     todo.Add Todo    $item}
 ```
 
-#### `resources\pages\todo.robot`
+#### `resources\pages\todo.resource`
 
 ```
 *** Settings ***
@@ -2011,47 +2015,6 @@ Script is in `environment.robot`
 
 - Refactor `no-magic-constants.robot` to read the browser from an OS environment variable
 - Solution is in `browser-environment-variable.robot`
-
-### Page Object Model (recap)
-
-- Design pattern that separates test logic from page locators and actions
-- Each web page/component is represented as a .`resource` file with its own locators and keywords
-- Keywords encapsulate actions
-    - Instead of using raw locators in tests, you call high-level keywords
-- Tests stay clean and read like scenarios, rather than technical steps
-- Locators are centralised, so only need to be updated in one place
-- Page keywords can be reused
-- Easier to manage larger test suites by organising code per page/component
-
-### Demo: Swag Labs
-
-- Open the [Swag Labs](https://www.saucedemo.com) web app
-- Demo of a simple e-commerce store
-- Designed for testing/demoing automation tools
-- Presents common user flows like login, browsing inventory, adding items to cart, checkout and order confirmation
-- The source code is available in a [GitHub repository](https://github.com/saucelabs/sample-app-web)
-
-### Swag Labs test project layout
-
-```
-pom-swag-labs/
-├─ resources/
-│  ├─ pages
-│  │  ├─ cart.resource
-│  │  ├─ checkout.resource
-│  │  ├─ inventory.resource
-│  │  └─ login.resource
-│  ├─ common.resource
-│  └─ swag-labs.resource
-├─ tests/
-│  └─ checkout.robot
-├─ results/
-└─ libraries/
-```
-
-### Demo: Review Swag Labs tests
-
-- Review the project in `pom-swag-labs`
 
 ### Use of best practices in the course
 
@@ -3224,6 +3187,47 @@ Script is in `xpath-examples.robot`
 - Refactor it to use better locators
 - There's no one perfect answer
 - Solution is in `todos-with-good-locators.robot` 
+
+### Page Object Model (recap)
+
+- Design pattern that separates test logic from page locators and actions
+- Each web page/component is represented as a .`resource` file with its own locators and keywords
+- Keywords encapsulate actions
+    - Instead of using raw locators in tests, you call high-level keywords
+- Tests stay clean and read like scenarios, rather than technical steps
+- Locators are centralised, so only need to be updated in one place
+- Page keywords can be reused
+- Easier to manage larger test suites by organising code per page/component
+
+### Demo: Swag Labs
+
+- Open the [Swag Labs](https://www.saucedemo.com) web app
+- Demo of a simple e-commerce store
+- Designed for testing/demoing automation tools
+- Presents common user flows like login, browsing inventory, adding items to cart, checkout and order confirmation
+- The source code is available in a [GitHub repository](https://github.com/saucelabs/sample-app-web)
+
+### Swag Labs test project layout
+
+```
+pom-swag-labs/
+├─ resources/
+│  ├─ pages
+│  │  ├─ cart.resource
+│  │  ├─ checkout.resource
+│  │  ├─ inventory.resource
+│  │  └─ login.resource
+│  ├─ common.resource
+│  └─ swag-labs.resource
+├─ tests/
+│  └─ checkout.robot
+├─ results/
+└─ libraries/
+```
+
+### Demo: Review Swag Labs tests
+
+- Review the project in `pom-swag-labs`
 
 ### Expecting errors
 
