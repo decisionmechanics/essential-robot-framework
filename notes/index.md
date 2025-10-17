@@ -1474,8 +1474,12 @@ Add Todo
 - Syntax is  `RETURN value1 value2`
 	- Can return one or multiple values
 - Assign the returned value(s) to variables in the test case with `=`
-	- `${value}=    Get Value` (for a single value)
-	- `${value1}    ${value2}=    Get Values`
+
+    ```
+	${value}=    Get Value # (for a single value)
+	${value1}    ${value2}=    Get Values
+    ```
+
 - Keywords act like functions, enabling calculations, data fetching or reusable logic
 - Can return strings, numbers, lists, dictionaries or any evaluated value
 	- Variables are discussed later in the course
@@ -1547,7 +1551,6 @@ Delete Todo
     Add Todo    Walk dog
     Delete Todo    Walk dog
     Todo Should Not Exist    Walk dog
-
 ```
 
 Project is in `tags\`
@@ -1724,7 +1727,7 @@ Script is in `setup-teardown.robot`
 - Open and review the `parameterised-search.robot` solution
 - Refactor it to use test setup/teardown
 - Open Bing in the setup
-- Pause before closing the browser in the setup
+- Pause before closing the browser in the teardown
 - Solution is in `setup-teardown-with-bing.robot`
 
 ### Variables
@@ -1733,7 +1736,7 @@ Script is in `setup-teardown.robot`
 - Variable identifiers
 	- `$` for scalars
 	- `@` for lists
-	- `$` for dictionaries
+	- `&` for dictionaries
 	- `%` for environment variables
 - Scopes
 	- Test case (local)
@@ -1906,12 +1909,6 @@ Script is in `local-variables.robot`
 - Helps keep sensitive data (passwords, URLs, configs) or environment-specific values separate from test logic
  - Variables from variable files can be overridden via command-line (`--variable`)
 
-### Test suite variables
-
-- We can also define test suite variables as follows
-	- e.g. `VAR    ${BROWSER}    Edge    scope=SUITE`
-- This can be useful for setting authentication tokens at the suite level when they are returned from an API
-
 ### Using a Python variable file
 
 Project is in `variable-file\`
@@ -1952,11 +1949,21 @@ Use Variables From File
     Log    API URL: ${BASE_URL}/api
 ```
 
+### Test suite variables
+
+- We can also define test suite variables as follows
+
+    ```
+    VAR    ${BROWSER}    Edge    scope=SUITE
+    ```
+
+- This can be useful for setting authentication tokens at the suite level when they are returned from an API
+
 ### Environment variables
 
 - Read from the operating system
-- `${ENV:BROWSER}` gets the OS environment variable `BROWSER`
-- If you use `${ENV:...}`, it's always taken from the OS, regardless of other variable definitions
+- `%{BROWSER}` gets the OS environment variable `BROWSER`
+- If you use `%{...}`, it's always taken from the OS, regardless of other variable definitions
 - Common use
 	- Configure secrets, API keys or environment configs via OS environment variables
 	- Combine with command line or suite variables to choose environments dynamically
