@@ -8,8 +8,9 @@ Safe Division
     TRY
         ${result}=    Evaluate    10 / 0
         Log    Result is ${result}
-    EXCEPT    *ZeroDivisionError*    type=GLOB
+    EXCEPT    *ZeroDivisionError*    type=GLOB    AS    ${error}
         Log    Cannot divide by zero, using default value 0
+        Log    Oops...${error}
         VAR    ${result}=    0
     ELSE
         Log    Division successful

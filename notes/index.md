@@ -2349,6 +2349,7 @@ Script is in `load-more.robot`
 - Optional `ELSE` block is run if no error occurs
 - Optional `FINALLY` block is always run
 - Ended with an `END`
+- Error message can be captured in a variable using `AS`
 
 ### TRY/EXCEPT example
 
@@ -2359,8 +2360,9 @@ Safe Division
     TRY
         ${result}=    Evaluate    10 / 0
         Log    Result is ${result}
-    EXCEPT    *ZeroDivisionError*    type=GLOB
+    EXCEPT    *ZeroDivisionError*    type=GLOB    AS    ${error}
         Log    Cannot divide by zero, using default value 0
+        Log    Oops...${error}
         VAR    ${result}=    0
     ELSE
         Log    Division successful
@@ -2368,7 +2370,7 @@ Safe Division
         Log    Division attempt finished
     END
 
-    Log    Final result: ${result} 
+    Log    Final result: ${result}
 ```
 
 Script is in `safe-division.robot`
