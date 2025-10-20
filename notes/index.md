@@ -2350,6 +2350,7 @@ Script is in `load-more.robot`
 - Optional `FINALLY` block is always run
 - Ended with an `END`
 - Error message can be captured in a variable using `AS`
+- Set `--loglevel DEBUG` to view stack traces for unhandled exceptions
 
 ### TRY/EXCEPT example
 
