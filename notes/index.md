@@ -16,6 +16,7 @@
 - Testing web apps using Playwright
 - Testing APIs
 - Writing custom keywords using Python
+- pytest
 - End-to-end testing
 - Additional resources
 
@@ -1993,7 +1994,7 @@ ${BROWSER}      Firefox
 
 
 *** Test Cases ***
-Compare Environment And Robot Variables
+Compare Environment And Robot Framework Variables
     [Documentation]    Log both Robot Framework variable ${BROWSER} and environment variable %{BROWSER}
     Log    Robot Framework variable: ${BROWSER}
     Log    Environment variable: %{BROWSER}
@@ -3515,7 +3516,7 @@ Script is in `performance-tests.robot`
 - Exercise the application with normal Selenium test flows 
 - Trigger scanner actions after or during the crawl 
 - Collect and triage results (ZAP alerts, sqlmap output)
-	- Fail the Robot test or save artefacts depending on severity
+	- Fail the Robot Framework test or save artefacts depending on severity
 - Integrate into CI
 	- Run “light” scans on every build and deeper scans on scheduled jobs or pre-release gates
 
@@ -4647,7 +4648,7 @@ Create custom keywords using Python.
 - Use `@keyword` decorator to mark and name keywords
 - Import the Python file in Robot Framework scripts using `Library`
 - Type hints enable automatic argument conversion
-- Return values can be assigned to Robot variables
+- Return values can be assigned to Robot Framework variables
 - Raise `AssertionError`for failure conditions
 	- `robot.utils.asserts` provides utility methods that improve on raw `assert`
 - Use `robot.api.logger` for messages
@@ -4824,7 +4825,25 @@ Verify Homepage Title
 
 ### Errors in Python keywords
 
-TBD
+- Exceptions in Python keywords will bubble up to Robot Framework
+- Use `--loglevel DEBUG` (or `TRACE`) to see them
+- Can be handled using `TRY/EXCEPT`
+- An example is available in `error-handling\`
+
+### Robot Framework Listener interface
+
+- Allows custom code to react to Robot Framework test execution events
+- Implemented as a Python module or class and registered with `--listener`
+- Two versions exist (v2 and v3)
+    - v3 allows _modification_ of attributes
+    - Interface version must be specifed in script via a `ROBOT_LISTENER_API_VERSION` variable
+- Typical methods include `start_suite`, `end_suite`, `start_test`, `end_test`, `start_keyword`, `end_keyword`, `log_message` and `message`
+- Each method receives event-specific data, usually as a dictionary of attributes (`attrs`)
+- Used for custom logging, reporting, integrations or real-time monitoring
+- Called automatically during execution as tests, suites and keywords run
+- Can access details such as names, documentation, tags, and statuses of executed items
+- Supports callbacks for file creation events like `output_file`, `report_file`, and `log_file`
+- An example is available in `keyword-listener\`
 
 ### Robot Framework API
 
@@ -4891,6 +4910,180 @@ Time Keyword
 	        	return False
 		return True
 	```
+
+## pytest
+
+### Overview
+
+- Python testing framework
+    - Library and CLI tool
+- Independent of Robot Framework
+- Install using `uv add pytest`  
+- Simplifies writing and running tests
+- Supports unit, functional, integration and UI tests
+    - May need additional libraries
+- Uses simple assert statements for validation
+- Automatically discovers test files and functions
+- Provides detailed, readable failure reports
+- Supports fixtures for setup and teardown
+- Allows parameterised testing
+- Compatible with existing unittest tests
+- Extendable with plugins and custom hooks
+- Supports parallel test execution
+- Works well with CI/CD pipelines
+- Actively maintained and widely used
+
+### Unit testing with pytest
+
+```python
+import pytest
+
+
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit must be positive")
+        self.balance += amount
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise ValueError("Insufficient funds")
+        self.balance -= amount
+
+    def __str__(self):
+        return f"{self.owner}'s account balance: £{self.balance}"
+
+
+def test_deposit_increases_balance():
+    account = BankAccount("Jane", 100)
+    account.deposit(50)
+    assert account.balance == 150
+
+
+def test_withdraw_decreases_balance():
+    account = BankAccount("Jane", 200)
+    account.withdraw(80)
+    assert account.balance == 120
+
+
+def test_withdraw_too_much_raises_error():
+    account = BankAccount("Jane", 50)
+    with pytest.raises(ValueError, match="Insufficient funds"):
+        account.withdraw(100)
+
+
+def test_negative_deposit_raises_error():
+    account = BankAccount("Jane", 100)
+    with pytest.raises(ValueError, match="Deposit must be positive"):
+        account.deposit(-20)
+
+
+@pytest.mark.parametrize("deposit,expected", [(10, 110), (50, 150), (0, 100)])
+def test_multiple_deposits(deposit, expected):
+    account = BankAccount("Jane", 100)
+    if deposit == 0:
+        with pytest.raises(ValueError):
+            account.deposit(deposit)
+    else:
+        account.deposit(deposit)
+        assert account.balance == expected
+```
+
+Script is in `test_bank_account.py`
+
+### Playwright for Python
+
+- Python binding for Microsoft's Playwright automation library
+    - Install using `uv add pytest-playwright`
+- Enables browser automation with Chromium, Firefox, and WebKit
+    - Browsers are installed using `playwright install`
+- Uses async and sync APIs (`playwright.sync_api` and `playwright.async_api`)
+    - Async APIs require `pytest-playwright-asyncio` to be installed
+- Supports headless and headed modes
+- Provides context and page isolation for parallel testing
+- Built-in selectors: CSS, text, XPath and role-based queries
+- Offers tracing, video, and screenshot recording for debugging
+- Network interception and request/response modification supported
+- Fixtures and parallelization integrate seamlessly with pytest
+- Useful for E2E tests, scraping and performance validation
+- Strong typing and modern async syntax for reliability
+- Cross-platform: works on Windows, Linux and macOS
+- Runs headless by default
+    - Use `pytest --headed` to show browsers
+
+### Search DuckDuckGo using Playwright for Python
+
+```python
+# Run this as headed or DuckDuckGo might think it's a bot
+
+from playwright.sync_api import Page, expect
+import re
+
+
+def test_duckduckgo_robotframework(page: Page):
+    page.goto("https://duckduckgo.com")
+
+    page.get_by_placeholder("Search without being tracked").fill("Robot Framework")
+    page.keyboard.press("Enter")
+
+    results = page.locator("section[data-testid='mainline']")
+    expect(results).to_be_visible()
+
+    expect(page).to_have_title(re.compile("Robot Framework"))
+```
+
+Script is in `test_search_ddg.py`
+
+### Testing APIs with pytest
+
+- Use `requests` or `aiohttp` to make requests
+    - Install `pytest-asyncio` plugin if used async/await
+- Assert status codes, response times and response data
+
+### Testing GitHub public API
+
+```python
+import requests
+
+BASE_URL = "https://api.github.com"
+REPO = "robotframework/robotframework"
+
+def test_get_repo_details():
+    response = requests.get(f"{BASE_URL}/repos/{REPO}")
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data["name"] == "robotframework"
+    assert data["owner"]["login"] == "robotframework"
+    assert data["private"] is False
+    assert "stargazers_count" in data
+    assert "forks_count" in data
+
+def test_list_issues():
+    response = requests.get(f"{BASE_URL}/repos/{REPO}/issues", params={"state": "open"})
+    assert response.status_code == 200
+
+    issues = response.json()
+    assert isinstance(issues, list)
+    if issues:
+        assert "title" in issues[0]
+        assert "html_url" in issues[0]
+        assert "user" in issues[0]
+
+def test_contributors():
+    response = requests.get(f"{BASE_URL}/repos/{REPO}/contributors")
+    assert response.status_code == 200
+
+    contributors = response.json()
+    assert isinstance(contributors, list)
+    assert any(c["login"] == "pekkaklarck" in c["login"].lower() for c in contributors)
+```
+
+Script is in `test_api.py`
 
 ## End-to-end testing
 
