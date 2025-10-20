@@ -37,6 +37,22 @@
 - `solutions` folder contains solutions to exercises
 	- Organised by module titles
 
+### Restore from GitHub repository
+
+- This is an optional step
+    - Your virtual environment is already configured
+- Change to the home folder (e.g. `C:`, `~/`)
+- Clone the folder (`git clone https://github.com/decisionmechanics/essential-robot-framework course`)
+- Change to the new folder (`cd course`)
+- Sync the project to install Python and libraries (`uv sync`)
+- Add the Playwright browser drivers
+
+    ```bash
+    uv run rfbrowser install chromium
+    uv run rfbrowser install firefox
+    uv run rfbrowser install webkit
+    ```
+
 ### Philosophy
 
 - Very “hands on”
