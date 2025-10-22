@@ -2204,7 +2204,11 @@ Script is in `conditional-execution.robot`
 
 - The `IF/END` structure is verbose if there's a single statement to be executed
 - Inline `IF` syntax allows the condition and statement to appear on the same line
-	- e..g. `IF    1 > 0    VAR    ${value}    'Yes'    ELSE    VAR    ${value}    'No'`
+
+    ```
+    IF    1 > 0    VAR    ${value}    'Yes'    ELSE    VAR    ${value}    'No'
+    ```
+
 - The `ELSE` block is optional
 
 ### Exercise: Check parity
@@ -2552,7 +2556,7 @@ Take advantage of Robot Framework's extensive test libraries.
 - [Telnet](https://robotframework.org/robotframework/latest/libraries/Telnet.html): Provides keywords for communicating with Telnet servers
 - [XML](https://robotframework.org/robotframework/latest/libraries/XML.html): Supports parsing, validating and manipulating XML data
 
-### Builtin common keywords
+### BuiltIn common keywords
 
 - `Log`: Writes a message into the log file
 - `Log To Console`: Prints a message directly to the console output
@@ -2983,7 +2987,7 @@ Script is in `selenium-utility-keywords.robot`
 - Link text locators work specifically for  `<a>` elements
 - CSS selectors allow precise matching with styles and structure
 - XPath provides a powerful way to navigate through the DOM structure
-- Good locators are unique, stable, and resistant to page changes
+- Good locators are unique, stable and resistant to page changes
 	- Good element naming conventions make web app testing easier
 - Dynamic or auto-generated attributes can make locators fragile
 - Locators should be chosen to minimise maintenance in tests
