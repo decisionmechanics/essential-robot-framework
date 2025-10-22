@@ -18,7 +18,7 @@ Validate Order Confirmation Response
 
     # 3. Extract the order number substring
     ${order}=    Get Substring    ${response}    10    15
-    Log To Console    Order number extracted: ${order}
+    Log    Order number extracted: ${order}
 
     # 4. Validate format with a regexp (order must be digits)
     Should Match Regexp    ${response}    "order":"\\d+"

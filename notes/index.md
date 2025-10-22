@@ -2352,7 +2352,7 @@ Script is in `load-more.robot`
 
 - Create a test case to log all the [Fibonacci numbers](https://www.mathsisfun.com/numbers/fibonacci-sequence.html) up to 100
 - The last value logged should be 89
-- Solution is in `Fibonacci.robot`
+- Solution is in `fibonacci.robot`
 
 ### TRY/EXCEPT
 
@@ -2696,6 +2696,8 @@ Simple Dialogs Example
     ${choice}=    Get Selection From User    Continue with test?    Yes    No
     Log    User selected: ${choice}
 ```
+
+Script is in `dialogs.robot`
 
 ### Screenshot
 

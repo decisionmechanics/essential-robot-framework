@@ -13,7 +13,7 @@ Simple Dialogs Example
 
     # Ask the user for input
     ${name}=    Get Value From User    Please enter your name
-    Log To Console    User entered: ${name}
+    Log    User entered: ${name}
 
     # Give the user a choice
     ${choice}=    Get Selection From User    Continue with test?    Yes    No
