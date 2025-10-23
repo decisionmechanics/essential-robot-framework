@@ -15,6 +15,7 @@
 - Testing web apps using Selenium
 - Testing web apps using Playwright
 - Testing APIs
+- Testing databases
 - Writing custom keywords using Python
 - pytest
 - End-to-end testing
