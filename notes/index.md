@@ -3533,9 +3533,9 @@ Script is in `performance-tests.robot`
 ### Security testing
 
 - Get permission and scope
-	- Never run security scans against systems you don't have explicit authorisation for.
-- Run ZAP  as a proxy on the test host
-	- Configure Robot/Selenium browser to use that proxy so all traffic is recorded, letting the scanner see every URL your tests visit
+	- Never run security scans against systems you don't have explicit authorisation for
+- Run [ZAP](https://www.zaproxy.org) as a proxy on the test host
+	- Configure Robot Framework/Selenium browser to use that proxy so all traffic is recorded, letting the scanner see every URL your tests visit
 - Exercise the application with normal Selenium test flows 
 - Trigger scanner actions after or during the crawl 
 - Collect and triage results (ZAP alerts, sqlmap output)
@@ -3555,7 +3555,7 @@ Script is in `performance-tests.robot`
 
 ### Zed Attack Proxy (ZAP)
 
-- [ZAP](https://www.zaproxy.org) is a free and open-source web app security scanner
+- ZAP is a free and open-source web app security scanner
 - Intercepting proxy to capture and modify HTTP(S) traffic
 - Spider/crawler to auto-discover pages and endpoints
 - Passive scanning for safe checks like headers and cookies

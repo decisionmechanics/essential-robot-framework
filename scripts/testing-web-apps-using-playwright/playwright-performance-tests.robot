@@ -22,7 +22,7 @@ Measure Add Todo Response
     ${duration}=    Get Duration    ${start_date_time}
     Log    Adding todo took ${duration} s (limit ${ADD_TODO_MAX}s)
     Should Be True    ${duration} < ${ADD_TODO_MAX}    msg=Add-todo too slow: ${duration}s >= ${ADD_TODO_MAX}s
-    Close Browsers    ALL
+    Close Browser    ALL
 
 
 *** Keywords ***
