@@ -22,7 +22,7 @@ Measure Page Load Time
     Go To    ${URL}
     Wait Until Page Contains Element    css=.new-todo
     ${duration}=    Get Duration    ${start_time}
-    Log To Console    Page loaded in ${duration} s (limit ${PAGE_LOAD_MAX}s)
+    Log    Page loaded in ${duration} s (limit ${PAGE_LOAD_MAX}s)
     Should Be True    ${duration} < ${PAGE_LOAD_MAX}    msg=Page load too slow: ${duration}s >= ${PAGE_LOAD_MAX}s
 
 Measure Add Todo Response
@@ -33,7 +33,7 @@ Measure Add Todo Response
     Press Keys    css=.new-todo    ENTER
     Wait Until Page Contains Element    xpath=//li[contains(., "${ITEM}")]
     ${duration}=    Get Duration    ${start_time}
-    Log To Console    Adding todo took ${duration} s (limit ${ADD_TODO_MAX}s)
+    Log    Adding todo took ${duration} s (limit ${ADD_TODO_MAX}s)
     Should Be True    ${duration} < ${ADD_TODO_MAX}    msg=Add-todo too slow: ${duration}s >= ${ADD_TODO_MAX}s
 
 Measure Toggle Todo Response
@@ -46,7 +46,7 @@ Measure Toggle Todo Response
     Click Element    xpath=//li[contains(., "${ITEM}")]//input[@class="toggle"]
     Wait Until Page Contains    0 items left
     ${duration}=    Get Duration    ${start_time}
-    Log To Console    Toggle completed in ${duration} s (limit ${TOGGLE_MAX}s)
+    Log    Toggle completed in ${duration} s (limit ${TOGGLE_MAX}s)
     Should Be True    ${duration} < ${TOGGLE_MAX}    msg=Toggle too slow: ${duration}s >= ${TOGGLE_MAX}s
 
 

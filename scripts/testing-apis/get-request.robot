@@ -23,5 +23,5 @@ Log Pets
     [Documentation]    Log the names of the pets
     [Arguments]    ${pets}
     FOR    ${pet}    IN    @{pets}
-        IF    "name" in $pet    Log To Console    ${pet}[name]
+        IF    "name" in $pet    Log    ${pet}[name]
     END

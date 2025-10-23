@@ -2607,7 +2607,7 @@ Validate Order Confirmation Response
 
     # 3. Extract the order number substring
     ${order}=    Get Substring    ${response}    10    15
-    Log To Console    Order number extracted: ${order}
+    Log    Order number extracted: ${order}
 
     # 4. Validate format with a regexp (order must be digits)
     Should Match Regexp    ${response}    "order":"\\d+"
@@ -2695,7 +2695,7 @@ Simple Dialogs Example
 
     # Ask the user for input
     ${name}=    Get Value From User    Please enter your name
-    Log To Console    User entered: ${name}
+    Log    User entered: ${name}
 
     # Give the user a choice
     ${choice}=    Get Selection From User    Continue with test?    Yes    No
@@ -3123,7 +3123,7 @@ Script is in `selenium-locators.robot`
 - Absolute paths are fragile because they depend on exact structure
 - Relative paths are more flexible and commonly used
 - Allows combining multiple conditions with and/or
-- Can use functions like `contains()`, `starts-with()`, or `text()`å
+- Can use functions like `contains()`, `starts-with()`, or `text()`
 - Supports indexing to target specific elements in a list
 - Very powerful, but often less efficient and harder to maintain than CSS selectors
 - Useful when no unique id, name or class is available
@@ -3346,7 +3346,7 @@ Script is in `testing-errors.robot`
 - Integrates with browsers, CI/CD pipelines, and test frameworks (e.g., Selenium, Cypress, Playwright, Robot Framework)
 - Provides JavaScript API (`axe.run()`) to scan parts or all of a page
 - Reports structured JSON output with violations, impact levels and suggested fixes
-- Categorizes issues by severity (minor, moderate, serious, critical)
+- Categorises issues by severity (minor, moderate, serious, critical)
 - Detects problems such as missing alt text, low colour contrast, ARIA misuse and missing labels
 - Focuses on low false positives by only flagging testable accessibility rules
 - Available as browser extensions (axe DevTools) and command-line tools for developers
@@ -3493,7 +3493,7 @@ Measure Page Load Time
     Go To    ${URL}
     Wait Until Page Contains Element    css=.new-todo
     ${duration}=    Get Duration    ${start_time}
-    Log To Console    Page loaded in ${duration} s (limit ${PAGE_LOAD_MAX}s)
+    Log    Page loaded in ${duration} s (limit ${PAGE_LOAD_MAX}s)
     Should Be True    ${duration} < ${PAGE_LOAD_MAX}    msg=Page load too slow: ${duration}s >= ${PAGE_LOAD_MAX}s
 
 Measure Add Todo Response
@@ -3504,7 +3504,7 @@ Measure Add Todo Response
     Press Keys    css=.new-todo    ENTER
     Wait Until Page Contains Element    xpath=//li[contains(., "${ITEM}")]
     ${duration}=    Get Duration    ${start_time}
-    Log To Console    Adding todo took ${duration} s (limit ${ADD_TODO_MAX}s)
+    Log    Adding todo took ${duration} s (limit ${ADD_TODO_MAX}s)
     Should Be True    ${duration} < ${ADD_TODO_MAX}    msg=Add-todo too slow: ${duration}s >= ${ADD_TODO_MAX}s
 
 
@@ -3662,7 +3662,7 @@ Test web apps using Playwright (via Robot Framework).
 - Rich debugging tools
 - Works well with CI/CD pipelines
 - Strong isolation with browser contexts
-- Page Object Model support
+- [Page Object Model](https://playwright.dev/docs/pom) support
 - Easy installation and setup
 
 ### Playwright vs Selenium
@@ -3691,7 +3691,7 @@ Test web apps using Playwright (via Robot Framework).
 	- Selenium can click on hidden/covered elements unless guarded manually
 - Playwright's mobile emulation is integrated
 	- Selenium uses Chrome DevTools or external setups
-- Selenium supports a wider ecosystem (e.g., legacy browsers, vendor tools, Grid for large scale)
+- Selenium supports a wider ecosystem (e.g. legacy browsers, vendor tools, Grid for large scale)
 - Selenium is W3C-standard and widely adopted across enterprises
 	- Playwright is newer with opinionated defaults
 
@@ -3736,9 +3736,9 @@ To clear the node-side dependencies and browser binaries use `uv run rfbrowser c
 	- Enabled (not disabled)
 - If conditions aren't met immediately, the keyword retries until a timeout is reached
 - Default timeout is configurable with `Set Browser Timeout` (default 10s)
-- Auto-waiting applies to elements, navigation, and network events
+- Auto-waiting applies to elements, navigation and network events
 - Reduces need for explicit `Sleep` or manual waits
-	Ensures tests are less flaky by synchronising with real page state automatically
+	- Ensures tests are less flaky by synchronising with real page state automatically
 - Explicit waiting statements (e.g. `Wait For Elements State`) are available if fine-grained control is required
 
 ### Finding elements using Browser library
@@ -3760,7 +3760,6 @@ To clear the node-side dependencies and browser binaries use `uv run rfbrowser c
 	- This is generally preferred to `Open Browser`
 	- Browsers are run headless by default
 - `Close Browser`: close current browser instance
-- `Close All Browsers`: close every open browser
 - `New Context`: create a new isolated browser context
 - `New Page`: open a new tab/page in a context
 
@@ -4247,7 +4246,7 @@ Log Pets
     [Documentation]    Log the names of the pets
     [Arguments]    ${pets}
     FOR    ${pet}    IN    @{pets}
-        IF    "name" in $pet    Log To Console    ${pet}[name]
+        IF    "name" in $pet    Log    ${pet}[name]
     END
 ```
 

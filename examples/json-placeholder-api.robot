@@ -15,5 +15,5 @@ Get User Details Should Return Correct Name
     Create Session    json_api    ${BASE_URL}
     ${response}=    GET On Session    json_api    /users/${USER_ID}    expected_status=200
     VAR    ${json}=    ${response.json()}
-    Log To Console    User name: ${json["name"]}
+    Log    User name: ${json["name"]}
     Should Be Equal    ${json["name"]}    Leanne Graham
