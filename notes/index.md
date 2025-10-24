@@ -1585,6 +1585,26 @@ Project is in `tags\`
 - Run all tests _except_ the smoke tests
 	- `robot --exclude smoke tests`
 
+### Force tags
+
+- Force tags are tags automatically added to every test case in a test suite
+- Defined using the `Force Tags` setting in a suite's `.robot` file
+- Applied regardless of whether a test already has other tags
+- Useful for grouping all tests in a suite under a common label
+- Help with filtering, reporting and selective test execution
+- Avoids repetitive tagging of each test manually
+- Can be combined with individual test tags
+- Cannot be removed or overridden by other tag settings
+
+### Default tags
+
+- Default tags are tags automatically added to tests that don't already have any tags
+- Defined using the `Default Tags` setting in a suite's `.robot` file
+- Only applied when a test has no tags of its own
+- Useful for giving untagged tests a baseline classification
+- Can be overridden or replaced by manually assigned tags
+- Un1like `Force Tags`, they don’t apply universally
+
 ### Page Objects
 
 - Page Object Model is a design pattern that organises locators and actions for each web page into separate files (keywords)
@@ -2033,6 +2053,41 @@ Script is in `environment.robot`
 
 - Refactor `no-magic-constants.robot` to read the browser from an OS environment variable
 - Solution is in `browser-environment-variable.robot`
+
+### Test templates
+
+- Data-driven test templates let you run the same test logic with different input data
+- Defined using the `Test Template` setting in a suite or test case
+- The keyword set as the template is executed for each row of data
+- Each row in the test case acts like a separate test execution
+- Helps avoid repetition when testing multiple input/output combinations
+- Keeps test cases shorter and easier to maintain
+- Test names can describe each data set for clearer reports
+- Useful for validating multiple scenarios with one keyword logic
+
+### Data-driven test template
+
+```
+*** Settings ***
+Test Template    Add Numbers Should Equal
+Library           BuiltIn
+
+*** Test Cases ***
+Addition Tests
+    [Tags]    math
+    1    2    3
+    5    5    10
+    10   -2   8
+    7    0    7
+
+*** Keywords ***
+Add Numbers Should Equal
+    [Arguments]    ${a}    ${b}    ${expected}
+    ${result}=    Evaluate    ${a} + ${b}
+    Should Be Equal As Numbers    ${result}    ${expected}
+```
+
+Script is in `test-template.robot`
 
 ### Use of best practices in the course
 
