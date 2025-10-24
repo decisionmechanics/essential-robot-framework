@@ -4653,7 +4653,7 @@ Script is in `check-table-schema.robot`
 ### Exercise: Check that deleting removes records
 
 - Add some records to the `users` table
-- Execute a `DELETE` without a wildcard
+- Execute a `DELETE` without a guard
 - Confirm that the table is now empty (e.g. using the `Check Row Count` keyword
 - Solution in `clear-users-table.robot` 
 
@@ -4683,7 +4683,7 @@ Create custom keywords using Python.
 - Each function performs a check and raises a `AssertionError` (or similar) if the condition fails
 - When used inside a keyword, Robot Framework automatically catches these exceptions and marks the keyword (and test) as failed
 - Produce clean, readable failure messages in Robot Framework's logs and reports
-- Behave like Python's built-in assert, but integrate better with Robot Framework's logging and error formatting
+- Behave like Python's built-in `assert`, but integrate better with Robot Framework's logging and error formatting
 - Accept an optional custom message (`msg`) for clearer test output
 - Useful in custom keyword libraries for readable, one-line validation instead of manual if checks or raw assert statements
 - Designed for simplicity
@@ -4700,7 +4700,7 @@ Create custom keywords using Python.
 - `fail(msg=None)`: Always fails with the given message
 - `assert_raises(expected, callable, *args, **kwargs)`: Fails if the callable doesn't raise the expected exception
 - `assert_almost_equal(a, b, precision=7, msg=None)`: Fails if numbers differ more than allowed precision
-- `assert\_not\_almost\_equal(a, b, precision=7, msg=None)`: Fails if numbers are too close within precision
+- `assert_not_almost_equal(a, b, precision=7, msg=None)`: Fails if numbers are too close within precision
 
 ### Custom utility keywords
 
@@ -4884,13 +4884,12 @@ Project is in `measure-performance`
 import time
 from robot.api.deco import keyword
 from robot.api import logger
+from robot.libraries.BuiltIn import BuiltIn
 
 
 @keyword("Measure Execution Time")
 def measure_execution_time(keyword_name: str, *args):
     """Run another keyword and log how long it takes."""
-    from robot.libraries.BuiltIn import BuiltIn
-
     built_in = BuiltIn()
 
     start = time.perf_counter()
@@ -5126,7 +5125,6 @@ Review tips for creating effective end-to-end tests in Robot Framework.
 		- Tests: define scenarios
 		- Keywords: reusable building blocks
 		- Libraries/Resources: logic and data
-	- Use the Page Object pattern for UI automation (one resource file per page/component)
 	- Store shared data (e.g. URLs, API endpoints, credentials) in variable files or environment-specific YAML/JSON files
 	- Name files and suites logically, e.g. `login-tests.robot`, `checkout-flow.robot`
 - Keywords and Reusability
@@ -5138,8 +5136,8 @@ Review tips for creating effective end-to-end tests in Robot Framework.
 	- Use test templates for data-driven testing 
 	- Integrate with CSV/Excel/JSON data sources for broader coverage
 - Reliability and Stability
-	- Avoid Sleep
-		- Prefer `Wait Until Element Is Visible` or dynamic waits
+	- Avoid `Sleep`
+		- Prefer `Wait Until Element Is Visible` (for web testing) or dynamic waits
 	- Add retry logic for flaky external systems
 	- Clean up data in teardown sections to keep tests idempotent
 	- Handle pop-ups and async UI events gracefully with waits and conditions
@@ -5149,7 +5147,6 @@ Review tips for creating effective end-to-end tests in Robot Framework.
 	- Use Docker or virtual environments to ensure consistent test environments
 - Logging and Reporting
 	- Log key checkpoints (`Log`, `Log To Console`) for traceability
-	- Enable screenshots on failure (SeleniumLibrary does this automatically)
 	- Review `log.html` and `report.html` for detailed breakdowns of execution
 - CI/CD Integration
 	- Run tests automatically with GitHub Actions, Jenkins, etc.

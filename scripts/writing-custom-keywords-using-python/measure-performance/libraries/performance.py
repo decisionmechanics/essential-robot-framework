@@ -1,13 +1,12 @@
 import time
 from robot.api.deco import keyword
 from robot.api import logger
+from robot.libraries.BuiltIn import BuiltIn
 
 
 @keyword("Measure Execution Time")
 def measure_execution_time(keyword_name: str, *args):
     """Run another keyword and log how long it takes."""
-    from robot.libraries.BuiltIn import BuiltIn
-
     built_in = BuiltIn()
 
     start = time.perf_counter()
