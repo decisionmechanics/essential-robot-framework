@@ -15,7 +15,7 @@ Check Random Number
     Log    Random number is: ${random_number}
     Should Be True    10 <= ${random_number} <= 50
 
-Check Random Value
+Get Random Value
     [Documentation]    Select a random value from a list
     ${random_value}=    Select Random Value From List    ${ANIMALS}
     Log    ${random_value}

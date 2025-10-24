@@ -4210,7 +4210,7 @@ Test web APIs using Robot Framework.
 - Robot Framework library for testing HTTP/HTTPS APIs
 - Built on top of Python's requests module
 - Provides keywords for `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`
-- Can create and reuse sessions with base URL, headers, cookies, and authentication
+- Can create and reuse sessions with base URL, headers, cookies and authentication
 - Supports sending query parameters, form data, JSON, multipart file uploads
 - Checks response status, headers, cookies and body content
 
@@ -4556,27 +4556,24 @@ ${DBNAME}       test.db
 
 
 *** Test Cases ***
-Create Table And Insert Data
-    [Documentation]    Setup database and data
-    Connect To Database    sqlite3    ${DBNAME}
-    Execute Sql String    CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)
-    Execute Sql String    DELETE FROM users
-    Execute Sql String    INSERT INTO users (name, age) VALUES ('Alice', 30)
-    Execute Sql String    INSERT INTO users (name, age) VALUES ('Bob', 25)
-    Disconnect From Database
-
 Validate Data In Users Table
     [Documentation]    Check that expected data is in the database
-    Connect To Database    sqlite3    ${DBNAME}
+    Create Table And Insert Data
     ${rows}=    Query    SELECT name, age FROM users ORDER BY id
     Should Be Equal As Strings    ${rows[0][0]}    Alice
     Should Be Equal As Integers    ${rows[0][1]}    30
     Should Be Equal As Strings    ${rows[1][0]}    Bob
     Should Be Equal As Integers    ${rows[1][1]}    25
-    Disconnect From Database
 
 
 *** Keywords ***
+Create Table And Insert Data
+    [Documentation]    Setup database and data
+    Execute Sql String    CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)
+    Execute Sql String    DELETE FROM users
+    Execute Sql String    INSERT INTO users (name, age) VALUES ('Alice', 30)
+    Execute Sql String    INSERT INTO users (name, age) VALUES ('Bob', 25)
+
 Delete File If Exists
     [Documentation]    Delete file if it exists
     [Arguments]    ${file}
@@ -4758,7 +4755,7 @@ Check Random Number
     Log    Random number is: ${random_number}
     Should Be True    10 <= ${random_number} <= 50
 
-Check Random Value
+Get Random Value
     [Documentation]    Select a random value from a list
     ${random_value}=    Select Random Value From List    ${ANIMALS}
     Log    ${random_value}
